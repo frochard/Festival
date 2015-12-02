@@ -16,6 +16,8 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
+import festival.simulation.People;
+
 /**
  * Resource exposing the users
  *
@@ -23,7 +25,7 @@ import org.restlet.resource.ServerResource;
  * @author msimonin
  *
  */
-public class UsersResource extends ServerResource
+public class FestivaliersResource extends ServerResource
 {
 
     /** Backend. */
@@ -31,9 +33,9 @@ public class UsersResource extends ServerResource
 
     /**
      * Constructor.
-     * Call for every single user request.
+     * Call for every single people request.
      */
-    public UsersResource()
+    public FestivaliersResource()
     {
         super();
         backend_ = (Backend) getApplication().getContext().getAttributes()
@@ -41,29 +43,27 @@ public class UsersResource extends ServerResource
     }
     
     /**
-     * Returns the list of all the users
+     * Returns the list of all the people
      *
-     * @return  JSON representation of the users
+     * @return  JSON representation of the people
      * @throws JSONException
      */
     @Get("json")
     public Representation getUsers() throws JSONException
     {
-        Collection<User> users = backend_.getDatabase().getUsers();
-        Collection<JSONObject> jsonUsers = new ArrayList<JSONObject>();
+        Collection<People> festivaliers = backend_.getDatabase().getFestivalier();
+        Collection<JSONObject> jsonFestivaliers = new ArrayList<JSONObject>();
 
-        for (User user : users)
+        for (People people : festivaliers)
         {
             JSONObject current = new JSONObject();
-            current.put("id", user.getId());
-            current.put("name", user.getName());
-            current.put("age", user.getAge());
-            current.put("url", getReference().toString() + user.getId());
-            current.put("tweet_url", getReference().toString() + user.getId() + "/tweets");
-            jsonUsers.add(current);
+            current.put("id", people.getId());
+            current.put("url", getReference().toString() + people.getId());
+            current.put("tweet_url", getReference().toString() + people.getId() + "/tweets");
+            jsonFestivaliers.add(current);
 
         }
-        JSONArray jsonArray = new JSONArray(jsonUsers);
+        JSONArray jsonArray = new JSONArray(jsonFestivaliers);
         JsonRepresentation result = new JsonRepresentation(jsonArray);
         result.setIndenting(true);
         return result;
@@ -81,17 +81,14 @@ public class UsersResource extends ServerResource
         throws Exception
     {
         JSONObject object = representation.getJsonObject();
-        String name = object.getString("name");
-        int age = object.getInt("age");
+        int id = object.getInt("id");
 
         // Save the user
-        User user = backend_.getDatabase().createUser(name, age);
+        People people = backend_.getDatabase().createFestivalier(id);
 
         // generate result
         JSONObject resultObject = new JSONObject();
-        resultObject.put("name", user.getName());
-        resultObject.put("age", user.getAge());
-        resultObject.put("id", user.getId());
+        resultObject.put("id", people.getId());
         JsonRepresentation result = new JsonRepresentation(resultObject);
         return result;
     }

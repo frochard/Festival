@@ -37,7 +37,7 @@ public final class Main
         component.getClients().add(Protocol.FILE);
 
         // Create an application
-        Application application = new MyTwitterApplication(context);
+        Application application = new FestivalApplication(context);
 
         // Add the backend into component's context
         Backend backend = new Backend();

@@ -7,7 +7,6 @@ public class Billeterie {
 	private int nbBilletDispo; 
 	
 	public Billeterie() {
-		// TODO Auto-generated constructor stub
 		this.nbBilletDispo=nbBilletMax;
 	}
 	

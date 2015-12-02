@@ -5,6 +5,8 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import festival.simulation.*;
+
 /**
  *
  * In-memory database 
@@ -17,15 +19,15 @@ public class InMemoryDatabase implements Database
 {
 
     /** User count (next id to give).*/
-    private int userCount_;
+    private int festivalierCount_;
 
     /** User Hashmap. */
-    Map<Integer, User> users_;
+    Map<Integer, People> festivaliers_;
 
 
     public InMemoryDatabase()
     {
-        users_ = new HashMap<Integer, User>();
+    	festivaliers_ = new HashMap<Integer, People>();
     }
 
     /**
@@ -38,32 +40,32 @@ public class InMemoryDatabase implements Database
      * @throws InterruptedException 
      */
     @Override
-    public synchronized User createUser(String name, int age) throws InterruptedException
+    public synchronized People createFestivalier(int id) throws InterruptedException
     {
-        User user = new User(name, age);
-        user.setId(userCount_);
-        users_.put(userCount_, user);
+    	People festivalier = new People(id);
+    	festivalier.setIdFestivalier(festivalierCount_);
+    	festivaliers_.put(festivalierCount_, festivalier);
         Thread.sleep(100);
-        userCount_ ++;
-        return user;
+        festivalierCount_ ++;
+        return festivalier;
     }
 
     @Override
-    public Collection<User> getUsers()
+    public Collection<People> getFestivalier()
     {
-        return users_.values();
+        return festivaliers_.values();
     }
 
     @Override
-    public User getUser(int id)
+    public People getFestivalier(int id)
     {
-        return users_.get(id);
+        return festivaliers_.get(id);
     }
 
 	@Override
-	public User deleteUser(User user) {
+	public People deleteFestivalier(People festivalier) {
 		// TODO Auto-generated method stub
-		return users_.remove(user.getId());
+		return festivaliers_.remove(festivalier.getIdFestivalier());
 	}
 
 }

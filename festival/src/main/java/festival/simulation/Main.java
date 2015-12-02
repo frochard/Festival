@@ -5,7 +5,7 @@ public class Main {
 	public static void main(String[] args) {
 		
 		Simulation simulation = new Simulation();
-		simulation.addPeople(54);
+		simulation.addPeople(14);
 		simulation.addBuses(2,5);
 	}
 }

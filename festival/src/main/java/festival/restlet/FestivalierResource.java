@@ -3,6 +3,8 @@ package festival.restlet;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import festival.simulation.*;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.restlet.data.Status;
@@ -16,18 +18,18 @@ import org.restlet.resource.ServerResource;
 /**
  * Resource exposing a user
  *
- * @author msimonin
- * @author ctedeschi
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
  *
  */
-public class UserResource extends ServerResource
+public class FestivalierResource extends ServerResource
 {
 
     /** Backend. */
     private Backend backend_;
 
-    /** User handled by this resource. */
-    private User user_;
+    /** festivalier handled by this resource. */
+    private People festivalier_;
 
     
     /* 
@@ -39,9 +41,9 @@ public class UserResource extends ServerResource
         // On récupère l'id passée dans l'URL
         // Note : a priori le cast ne passe pas en java6
         //int userId = (Integer) getRequest().getAttributes().get("userId");
-        int userId = Integer.valueOf((String) getRequest().getAttributes().get("userId"));
-        user_ = backend_.getDatabase().getUser(userId);
-        if (user_ == null)
+        int festivalierId = Integer.valueOf((String) getRequest().getAttributes().get("festivalierId"));
+        festivalier_ = backend_.getDatabase().getFestivalier(festivalierId);
+        if (festivalier_ == null)
         {
             getResponse().setStatus(Status.CLIENT_ERROR_NOT_FOUND);
         }
@@ -51,7 +53,7 @@ public class UserResource extends ServerResource
      * Constructor.
      * Call for every single user request.
      */
-    public UserResource()
+    public FestivalierResource()
     {
         backend_ = (Backend) getApplication().getContext().getAttributes()
                 .get("backend");
@@ -64,36 +66,35 @@ public class UserResource extends ServerResource
      * @throws JSONException
      */
     @Get("json")
-    public Representation getUser() throws JSONException 
+    public Representation getFestivalier() throws JSONException 
     {
     	// user_ is set by doInit
 
-        JSONObject userObject = toJson(user_);
-        userObject.put("tweet_url", getReference().toString() + "/tweets");
+        JSONObject festivalierObject = toJson(festivalier_);
+        festivalierObject.put("etat_url", getReference().toString() + "/etats");
 
-        JsonRepresentation result = new JsonRepresentation(userObject);
+        JsonRepresentation result = new JsonRepresentation(festivalierObject);
         result.setIndenting(true);
         return result;
     }
     
     @Delete("json")
-    public Representation deleteUser() throws JSONException
+    public Representation deleteFestivalier() throws JSONException
     {
-    	User deletedUser = backend_.getDatabase().deleteUser(user_);
-    	JSONObject jsonDeletedUser = toJson(deletedUser); 
-        jsonDeletedUser.put("status", "deleted");
-        JsonRepresentation result = new JsonRepresentation(jsonDeletedUser);
+    	People deletedFestivalier = backend_.getDatabase().deleteFestivalier(festivalier_);
+    	JSONObject jsonDeletedFestivalier = toJson(deletedFestivalier); 
+        jsonDeletedFestivalier.put("status", "deleted");
+        JsonRepresentation result = new JsonRepresentation(jsonDeletedFestivalier);
         result.setIndenting(true);
         return result;
     }
     
     
-    JSONObject toJson(User user) throws JSONException{
-    	JSONObject userObject = new JSONObject();
-        userObject.put("name", user.getName());
-        userObject.put("age", user.getAge());
-        userObject.put("id", user.getId());
-        return userObject;
+    JSONObject toJson(People festivalier) throws JSONException{
+    	JSONObject festivalierObject = new JSONObject();
+    	festivalierObject.put("name", festivalier.getName());
+        festivalierObject.put("id", festivalier.getId());
+        return festivalierObject;
     }
 
 }

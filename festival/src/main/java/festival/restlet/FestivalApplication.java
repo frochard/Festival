@@ -19,10 +19,10 @@ import org.restlet.routing.Router;
  * @author msimonin
  *
  */
-public class MyTwitterApplication extends Application
+public class FestivalApplication extends Application
 {
 
-    public MyTwitterApplication(Context context)
+    public FestivalApplication(Context context)
     {
         super(context);
     }
@@ -38,12 +38,12 @@ public class MyTwitterApplication extends Application
         Router router = new Router(getContext());
         router.attach("/", RootResource.class);
         router.attach("/static", directory);
-        router.attach("/users", UsersResource.class);
-        router.attach("/users/", UsersResource.class);
-        router.attach("/users/{userId}", UserResource.class);
-        router.attach("/users/{userId}/", UserResource.class);
-        router.attach("/users/{userId}/tweets", TweetsResource.class);
-        router.attach("/users/{userId}/tweets/", TweetsResource.class);
+        router.attach("/users", FestivaliersResource.class);
+        router.attach("/users/", FestivaliersResource.class);
+        router.attach("/users/{userId}", FestivalierResource.class);
+        router.attach("/users/{userId}/", FestivalierResource.class);
+        router.attach("/users/{userId}/tweets", EtatsResource.class);
+        router.attach("/users/{userId}/tweets/", EtatsResource.class);
         return router;
     }
 }

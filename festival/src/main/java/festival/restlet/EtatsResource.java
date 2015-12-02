@@ -17,18 +17,20 @@ import org.restlet.resource.Post;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
-public class TweetsResource extends ServerResource {
+import festival.simulation.*;
+
+public class EtatsResource extends ServerResource {
 
 	/** Backend. */
 	private Backend backend_;
 
 	/** User handled by this resource. */
-	private User user_;
+	private People people_;
 
 	/**
 	 * Constructor. Call for every single user request.
 	 */
-	public TweetsResource() {
+	public EtatsResource() {
 		super();
 		backend_ = (Backend) getApplication().getContext().getAttributes().get("backend");
 	}
@@ -42,15 +44,15 @@ public class TweetsResource extends ServerResource {
 		// Note : a priori le cast ne passe pas en java6
 		// int userId = (Integer) getRequest().getAttributes().get("userId");
 		int userId = Integer.valueOf((String) getRequest().getAttributes().get("userId"));
-		user_ = backend_.getDatabase().getUser(userId);
-		if (user_ == null) {
+		people_ = backend_.getDatabase().getFestivalier(userId);
+		if (people_ == null) {
 			getResponse().setStatus(Status.CLIENT_ERROR_NOT_FOUND);
 		}
 	}
 
 	@Get("html")
 	public Representation getUsersHtml() {
-		return new FileRepresentation("templates/list-tweets.html", MediaType.TEXT_HTML);
+		return new FileRepresentation("templates/list-etats.html", MediaType.TEXT_HTML);
 	}
 
 	/**
@@ -60,15 +62,15 @@ public class TweetsResource extends ServerResource {
 	 * @throws JSONException
 	 */
 	@Get("json")
-	public Representation getTweets() throws JSONException {
-		List<Tweet> tweets = user_.getTweets();
-		Collection<JSONObject> jsonTweets = new ArrayList<JSONObject>();
+	public Representation getEtats() throws JSONException {
+		List<Etat> etats = people_.getEtats();
+		Collection<JSONObject> jsonEtats = new ArrayList<JSONObject>();
 
-		for (Tweet tweet : tweets) {
-			JSONObject current = toJson(tweet);
-			jsonTweets.add(current);
+		for (Etat etat : etats) {
+			JSONObject current = toJson(etat);
+			jsonEtats.add(current);
 		}
-		JSONArray jsonArray = new JSONArray(jsonTweets);
+		JSONArray jsonArray = new JSONArray(jsonEtats);
 		JsonRepresentation result = new JsonRepresentation(jsonArray);
 		result.setIndenting(true);
 		return result;
@@ -82,20 +84,20 @@ public class TweetsResource extends ServerResource {
 	 * @return JSON representation of the newly created tweet
 	 * @throws JSONException
 	 */
-	@Post("json")
+/*	@Post("json")
 	public Representation createTweet(JsonRepresentation representation) throws Exception {
 		JSONObject object = representation.getJsonObject();
-		Tweet tweet = new Tweet(object.getString("content"));
-		user_.addTweet(tweet);
-		JSONObject jsonTweet = toJson(tweet);
+		Etat etat = new Etat(object.getString("content"));
+		people_.addEtat(etat);
+		JSONObject jsonTweet = toJson(etat);
 		JsonRepresentation result = new JsonRepresentation(jsonTweet);
 		result.setIndenting(true);
 		return result;
-	}
+	}*/
 
-	private JSONObject toJson(Tweet tweet) throws JSONException {
+	private JSONObject toJson(Etat etat) throws JSONException {
 		JSONObject current = new JSONObject();
-		current.put("content", tweet.getContent());
+		current.put("content", etat.getLibelleEtat());//.getContent());
 		return current;
 	}
 }

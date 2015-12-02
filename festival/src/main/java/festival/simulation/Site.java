@@ -50,11 +50,11 @@ public class Site {
 	}
 
 	public synchronized void monterDansBus(People p) throws InterruptedException{
-		while(p.getEtat()!="C"){
+		while(p.getEtats().size()==2){
 			//On parcourt les bus du site de départ pour rechercher une place libre
 			for (Bus b:this.buses){
 				//Test si le festivalier est en attente de bus
-				if(p.getEtat()=="B"){
+				if(p.getEtats().size()==2){
 					//Test s'il reste des places libres dans le bus
 					if (b.getNbPlace()<=0){
 						System.out.println("Il n'y a plus de place disponible dans le bus "+b.getNumBus()+". ");
@@ -69,11 +69,11 @@ public class Site {
 						b.getPassagers().add(p);
 						System.out.println("Le festivalier "+p.getIdFestivalier()+" monte dans le bus "+b.getNumBus());
 						//Changement d'état du festivalier
-						p.setEtat("C");
+						p.getEtats().add(new Etat("C",System.currentTimeMillis()));
 					}
 				}
 			}
-			if(p.getEtat()=="B"){
+			if(p.getEtats().size()==2){
 				//Mise en attente des festvaliers
 				wait();
 				System.out.println("festivalier "+p.getIdFestivalier()+" en attente d'un bus");

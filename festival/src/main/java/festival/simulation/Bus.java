@@ -55,12 +55,12 @@ public class Bus extends Thread {
 	public synchronized void descendreDuBus() throws InterruptedException{
 		System.out.println("*************************");
 		for(People p:passagers){
-			System.out.println("passager "+p.getIdFestivalier()+" avec l'état "+p.getEtat()+" dans le bus "+this.getNumBus());
+			System.out.println("passager "+p.getIdFestivalier()+" dans le bus "+this.getNumBus());
 		}
 		//Parcours des passagers du bus
 		for(People p:passagers){
 			//Changement d'état des passagers
-			p.setEtat("D");
+			p.getEtats().add(new Etat("D", System.currentTimeMillis()));
 			//Ajout du festivalier sur site d'arrivée
 			this.siteArrivee.ajouterFestivalier(p);
 			//Augmentation du nombre de places libres dans le bus
@@ -70,7 +70,7 @@ public class Bus extends Thread {
 		//Suppresion du festivalier du bus
 		this.passagers.clear();
 		for(People p:this.siteArrivee.getFestivaliers()){
-			System.out.println("Festivalier présent sur site arrivée"+p.getIdFestivalier()+" avec l'état "+p.getEtat());
+			System.out.println("Festivalier présent sur site arrivée"+p.getIdFestivalier());
 		}
 		System.out.println("*************************");
 	}

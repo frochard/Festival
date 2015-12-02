@@ -1,45 +1,48 @@
 package festival.simulation;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import festival.restlet.Tweet;
 
 public class People extends Thread{
 
 	private int idFestivalier;
-	private String etat;
-	private long dateEtat;
+	private List<Etat> etats;
 	private Billeterie billeterie;
 	private Site siteDepart;
 	private Site siteArrivee;
 
 	public People(int idFestivalier,Billeterie billeterie, Site siteDepart, Site siteArrivee) {
 		this.idFestivalier=idFestivalier;
-		this.etat="A";
-		this.dateEtat=System.currentTimeMillis();
+		this.etats=new ArrayList<Etat>();
+		this.etats.add(new Etat());
 		this.billeterie=billeterie;
 		this.siteDepart=siteDepart;
 		this.siteArrivee=siteArrivee;
 		System.out.println("Création du festivalier "+this.idFestivalier);
 	}
 
+	public People(int id) {
+		this.idFestivalier=idFestivalier;
+	}
+
 	public int getIdFestivalier() {
 		return idFestivalier;
 	}
 
-	public String getEtat() {
-		return etat;
+	
+	public void setIdFestivalier(int idFestivalier) {
+		this.idFestivalier = idFestivalier;
 	}
 
-	public void setEtat(String etat) {
-		this.etat = etat;
+	public List<Etat> getEtats() {
+		return etats;
 	}
 
-	public long getDateEtat() {
-		return dateEtat;
+	public void setEtats(List<Etat> etats) {
+		this.etats = etats;
 	}
-
-	public void setDateEtat(long dateEtat) {
-		this.dateEtat = dateEtat;
-	}
-
 
 	public void run(){
 		//Test si billet disponible
@@ -47,8 +50,8 @@ public class People extends Thread{
 			//Ajout du festivalier au site de départ
 			this.siteDepart.ajouterFestivalier(this);
 			System.out.println("Ajout du festivalier "+this.idFestivalier+" sur le site de départ");
-			//Changement d'Ã©tat
-			this.etat="B";
+			//Changement d'etat
+			this.etats.add(new Etat("B", System.currentTimeMillis()));
 			//Un festivalier cherche Ã  monter dans un bus non plein dÃ¨s que possible.
 			try {
 				this.siteDepart.monterDansBus(this);

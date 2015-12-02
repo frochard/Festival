@@ -3,6 +3,8 @@ package festival.restlet;
 import java.util.Collection;
 import java.util.List;
 
+import festival.simulation.*;
+
 
 /**
  *
@@ -16,39 +18,39 @@ public interface Database
 
     /**
      *
-     * Create a new user in the database.
+     * Create a new people in the database.
      *
-     * @param name      The name of the user
-     * @param age       The age of the user
-     * @return  the new user.
+     * @param name      The name of the people
+     * @param age       The age of the people
+     * @return  the new people.
      */
-    User createUser(String name, int age)  throws InterruptedException;
+    People createFestivalier(int id)  throws InterruptedException;
 
 
     /**
      *
-     * Returns the list of users.
+     * Returns the list of People.
      *
-     * @return the list of users
+     * @return the list of People
      */
-    Collection<User> getUsers();
+    Collection<People> getFestivalier();
 
 
     /**
-     * Returns the user with a given id.
+     * Returns the People with a given id.
      * 
-     * @param id	The user id
-     * @return	The user or null if not found.
+     * @param id	The people id
+     * @return	The people or null if not found.
      */
-    User getUser(int id);
+    People getFestivalier(int id);
 
 
 	/**
 	 * 
-	 * Deletes the user from the DB.
+	 * Deletes the people from the DB.
 	 * 
-	 * @param user		The user.
+	 * @param people		The people.
 	 */
-	User deleteUser(User user);
+    People deleteFestivalier(People festivalier);
 
 }
