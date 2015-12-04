@@ -8,6 +8,8 @@ import org.restlet.data.Protocol;
 import org.restlet.data.Reference;
 import org.restlet.resource.Directory;
 
+import festival.simulation.FestivalApplication;
+
 /**
  * Main RESTlet minimal example
  *

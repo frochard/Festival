@@ -1,4 +1,4 @@
-package festival.restlet;
+package festival.simulation;
 
 
 import java.io.File;
@@ -16,7 +16,7 @@ import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
-import festival.simulation.People;
+import festival.restlet.Backend;
 
 /**
  * Resource exposing the users

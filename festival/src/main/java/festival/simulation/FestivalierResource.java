@@ -1,8 +1,9 @@
-package festival.restlet;
+package festival.simulation;
 
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import festival.restlet.Backend;
 import festival.simulation.*;
 
 import org.json.JSONException;
@@ -77,18 +78,6 @@ public class FestivalierResource extends ServerResource
         result.setIndenting(true);
         return result;
     }
-    
-    @Delete("json")
-    public Representation deleteFestivalier() throws JSONException
-    {
-    	People deletedFestivalier = backend_.getDatabase().deleteFestivalier(festivalier_);
-    	JSONObject jsonDeletedFestivalier = toJson(deletedFestivalier); 
-        jsonDeletedFestivalier.put("status", "deleted");
-        JsonRepresentation result = new JsonRepresentation(jsonDeletedFestivalier);
-        result.setIndenting(true);
-        return result;
-    }
-    
     
     JSONObject toJson(People festivalier) throws JSONException{
     	JSONObject festivalierObject = new JSONObject();
