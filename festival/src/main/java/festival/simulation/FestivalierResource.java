@@ -70,11 +70,9 @@ public class FestivalierResource extends ServerResource
     public Representation getFestivalier() throws JSONException 
     {
     	// user_ is set by doInit
-
         JSONObject festivalierObject = toJson(festivalier_);
         festivalierObject.put("id", festivalier_.getId());
         festivalierObject.put("etat_url", getReference().toString() + festivalier_.getId() + "/stats");
-
         JsonRepresentation result = new JsonRepresentation(festivalierObject);
         result.setIndenting(true);
         return result;
@@ -86,5 +84,4 @@ public class FestivalierResource extends ServerResource
         festivalierObject.put("id", festivalier.getId());
         return festivalierObject;
     }
-
 }

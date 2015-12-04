@@ -21,16 +21,24 @@
     <div class="container">
       <div class="row">
       	<div class="col-md-6 col-md-offset-3">
-          <h1>Créer un festivalier</h1>
-          <form id="create-user-form">
-              <div class="form-group">
-                  <label for="name">Nom du festivalier</label>
-                  <input type="text" class="form-control" id="name"
-                         placeholder="Nom">
-              </div>
+          <h1>Créer des festivaliers</h1>
+          <form id="create-festivalier-form">
               <button type="submit" class="btn btn-default"
                       onclick="return false">
-                  Créer festivalier</button>
+                  Créer festivaliers</button>
+
+          </form>
+        </div>
+      </div>
+
+    <div class="container">
+      <div class="row">
+      	<div class="col-md-6 col-md-offset-3">
+          <h1>Créer des bus</h1>
+          <form id="create-bus-form">
+              <button type="submit" class="btn btn-default"
+                      onclick="return false">
+                  Créer bus</button>
 
           </form>
         </div>
@@ -42,10 +50,8 @@
           <table class="table table-striped table-hover" id="users-table">
               <thead>
                   <tr>
-                      <th>#</th>
-                      <th>Name</th>
-                      <th>Age</th>
-                      <th>Options</th>
+                      <th>id</th>
+                      <th>url</th>
                   </tr>
               </thead>
               <tbody></tbody>

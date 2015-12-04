@@ -21,15 +21,14 @@ import festival.restlet.Backend;
 /**
  * Resource exposing the users
  *
- * @author ctedeschi
- * @author msimonin
+ * @author 
  *
  */
 public class FestivaliersResource extends ServerResource
 {
 
     /** Backend. */
-    private Backend backend_;
+    private Simulation simulation_;
 
     /**
      * Constructor.
@@ -38,8 +37,8 @@ public class FestivaliersResource extends ServerResource
     public FestivaliersResource()
     {
         super();
-        backend_ = (Backend) getApplication().getContext().getAttributes()
-            .get("backend");
+        simulation_ = (Simulation) getApplication().getContext().getAttributes()
+            .get("simulation");
     }
 
     
@@ -50,18 +49,21 @@ public class FestivaliersResource extends ServerResource
      * @throws JSONException
      */
     @Get("json")
-    public Representation getUsers() throws JSONException
+    public Representation getFestivaliers() throws JSONException
     {
-        Collection<People> festivaliers = backend_.getDatabase().getFestivalier();
+        Collection<People> festivaliers = simulation_.getFestivaliers();
+        System.out.println("--------------***********---------------");
+    	System.out.println("Affichage des festivaliers de la simulation");
+        for (People people : festivaliers){
+        	System.out.println("festivalier "+people.getId());
+        }
+        System.out.println("--------------***********---------------");
         Collection<JSONObject> jsonFestivaliers = new ArrayList<JSONObject>();
-
-        for (People people : festivaliers)
-        {
+        for (People people : festivaliers){
             JSONObject current = new JSONObject();
             current.put("id", people.getId());
             current.put("url", getReference().toString() + people.getId());
             jsonFestivaliers.add(current);
-
         }
         JSONArray jsonArray = new JSONArray(jsonFestivaliers);
         JsonRepresentation result = new JsonRepresentation(jsonArray);
@@ -70,27 +72,16 @@ public class FestivaliersResource extends ServerResource
     }
 
     /**
-     * Create a user with the data present in the json representation
+     * Crée un certain nombre de festivalier
      * 
      * @param json representation of the user to create
      * @return JSON representation of the newly created user
      * @throws JSONException
      */
     @Post("json")
-    public Representation createUser(JsonRepresentation representation)
-        throws Exception
-    {
-        JSONObject object = representation.getJsonObject();
-        int id = object.getInt("id");
-
-        // Save the user
-        People people = backend_.getDatabase().createFestivalier(id);
-
-        // generate result
-        JSONObject resultObject = new JSONObject();
-        resultObject.put("id", people.getId());
-        JsonRepresentation result = new JsonRepresentation(resultObject);
-        return result;
+    public void createUsers(){
+    	System.out.println("Crée un certain nombre de festivalier");
+    	simulation_.addPeople(2);
     }
 
 }

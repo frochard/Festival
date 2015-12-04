@@ -19,7 +19,7 @@ import festival.restlet.RootResource;
  *
  * Application.
  *
- * @author msimonin
+ * @author Sanaa MAIROUCH / Frederic ROCHARD
  *
  */
 public class FestivalApplication extends Application

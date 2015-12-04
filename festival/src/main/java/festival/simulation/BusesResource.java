@@ -27,28 +27,11 @@ public class BusesResource extends ServerResource
 {
 
     /** Backend. */
-    private Backend backend_;
+    private Simulation simulation_;
 
-    /** festivalier handled by this resource. */
-    private People festivalier_;
+//    /** festivalier handled by this resource. */
+  //  private People festivalier_;
 
-    
-    /* 
-     * The method doInit is called prior to the others.
-     */
-    @Override
-    protected void doInit() throws ResourceException 
-    {
-        // On récupère l'id passée dans l'URL
-        // Note : a priori le cast ne passe pas en java6
-        //int userId = (Integer) getRequest().getAttributes().get("userId");
-        int festivalierId = Integer.valueOf((String) getRequest().getAttributes().get("festivalierId"));
-        festivalier_ = backend_.getDatabase().getFestivalier(festivalierId);
-        if (festivalier_ == null)
-        {
-            getResponse().setStatus(Status.CLIENT_ERROR_NOT_FOUND);
-        }
-    }
     
     /**
      * Constructor.
@@ -56,46 +39,20 @@ public class BusesResource extends ServerResource
      */
     public BusesResource()
     {
-        backend_ = (Backend) getApplication().getContext().getAttributes()
-                .get("backend");
+        simulation_ = (Simulation) getApplication().getContext().getAttributes()
+                .get("simulation");
     }
+
 
     /**
-     * Returns the user matching the id given in the URI
+     * Create buses with the data present in the json representation
      * 
-     * @return JSON representation of a user
+     * @param json representation of the user to create
+     * @return JSON representation of the newly created user
      * @throws JSONException
      */
-    @Get("json")
-    public Representation getFestivalier() throws JSONException 
-    {
-    	// user_ is set by doInit
-
-        JSONObject festivalierObject = toJson(festivalier_);
-        festivalierObject.put("etat_url", getReference().toString() + "/etats");
-
-        JsonRepresentation result = new JsonRepresentation(festivalierObject);
-        result.setIndenting(true);
-        return result;
+    @Post("json")
+    public void createBuses(){
+    	simulation_.addBuses(1, 2);
     }
-    
-    @Delete("json")
-    public Representation deleteFestivalier() throws JSONException
-    {
-    	People deletedFestivalier = backend_.getDatabase().deleteFestivalier(festivalier_);
-    	JSONObject jsonDeletedFestivalier = toJson(deletedFestivalier); 
-        jsonDeletedFestivalier.put("status", "deleted");
-        JsonRepresentation result = new JsonRepresentation(jsonDeletedFestivalier);
-        result.setIndenting(true);
-        return result;
-    }
-    
-    
-    JSONObject toJson(People festivalier) throws JSONException{
-    	JSONObject festivalierObject = new JSONObject();
-    	festivalierObject.put("name", festivalier.getName());
-        festivalierObject.put("id", festivalier.getId());
-        return festivalierObject;
-    }
-
 }

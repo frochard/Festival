@@ -69,10 +69,11 @@ public class Bus extends Thread {
 		System.out.println("*************************");
 		//Suppresion du festivalier du bus
 		this.passagers.clear();
-		for(People p:this.siteArrivee.getFestivaliers()){
+		// Parcours qui Génère java.util.ConcurrentModificationException
+/*		for(People p:this.siteArrivee.getFestivaliers()){
 			System.out.println("Festivalier présent sur site arrivée"+p.getIdFestivalier());
 		}
-		System.out.println("*************************");
+		System.out.println("*************************");*/
 	}
 	
 
@@ -90,7 +91,7 @@ public class Bus extends Thread {
 			this.siteDepart.retirerBus(this);
 			//Trajet aller
 			try {
-				sleep(2000);
+				sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -110,7 +111,7 @@ public class Bus extends Thread {
 			//Trajet retour : Retour du bus vers le site de départ
 			System.out.println("Départ du bus "+this.numBus+" du site d'arrivée.");
 			try {
-				sleep(2000);
+				sleep(500);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

@@ -1,15 +1,21 @@
 $(document).ready(function() {
-    $("#create-user-form button").click( function() {
-        var new_user = new Object();
-
-        new_user.name = $('input#name').val();
-
-        console.log(new_user);
-
+    $("#create-festivalier-form button").click( function() {
         $.ajax({
             type: "post",
             url: "/people/",
-            data: JSON.stringify(new_user),
+            success: function(data){
+                console.log(data);
+                window.location = "/";
+            },
+            dataType: "json",
+            contentType : "application/json"
+        });
+    });
+
+    $("#create-bus-form button").click( function() {
+        $.ajax({
+            type: "post",
+            url: "/buses/",
             success: function(data){
                 console.log(data);
                 window.location = "/";
@@ -29,19 +35,13 @@ $(document).ready(function() {
                 console.log(data);
 
                 $.each(data, function (item) {
-                    var name = data[item].name;
-                    var age = data[item].age;
                     var id = data[item].id;
                     var url = data[item].url;
-                    var tweet_url = data[item].tweet_url;
 
                     users_table.append(
                     '<tr>' +
+                        '<td>' + id + '</td>' +
                         '<th><a href="' + url + '">' + id + '</a></th>' +
-                        '<td>' + name + '</td>' +
-                        '<td>' + age + '</td>' +
-                        '<td><a type="button" class="btn btn-success btn-xs" href = "'+ tweet_url + '">tweets</a> ' +
-                        '<button type="button" class="btn btn-danger btn-xs" id="delete-user-' + id +'">delete</button></td>' +
                     '</tr>'
                     );
 

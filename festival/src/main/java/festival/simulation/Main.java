@@ -13,8 +13,8 @@ public class Main {
 
 	public static void main(String[] args) throws Exception {
 		
-		Simulation simulation = new Simulation();
-		/*simulation.addPeople(14);
+		/*Simulation simulation = new Simulation();
+		simulation.addPeople(14);
 		simulation.addBuses(2,5);*/
 		
 		
@@ -28,11 +28,16 @@ public class Main {
         Application application = new FestivalApplication(context);
 
         // Add the backend into component's context
-        Backend backend = new Backend();
-        context.getAttributes().put("backend", backend);
+        Simulation simulation = new Simulation();
+        context.getAttributes().put("simulation", simulation);
         component.getDefaultHost().attach(application);
        
         // Start the component
         component.start();
+        
+		/*simulation.addPeople(14);
+		simulation.addBuses(2,5);*/
     }
+	
+	
 }
