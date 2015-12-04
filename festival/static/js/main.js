@@ -3,13 +3,12 @@ $(document).ready(function() {
         var new_user = new Object();
 
         new_user.name = $('input#name').val();
-        new_user.age = $('input#age').val()
 
         console.log(new_user);
 
         $.ajax({
             type: "post",
-            url: "/users/",
+            url: "/people/",
             data: JSON.stringify(new_user),
             success: function(data){
                 console.log(data);
@@ -25,7 +24,7 @@ $(document).ready(function() {
 
         $.ajax({
             type: "get",
-            url: "/users/",
+            url: "/people/",
             success: function(data){
                 console.log(data);
 

@@ -12,7 +12,7 @@ public class Site {
 		this.festivaliers=new ArrayList<People>();
 	}
 
-	public synchronized ArrayList<People> getFestivaliers() {
+	public  ArrayList<People> getFestivaliers() {
 		return festivaliers;
 	}
 

@@ -41,6 +41,7 @@ public class FestivaliersResource extends ServerResource
         backend_ = (Backend) getApplication().getContext().getAttributes()
             .get("backend");
     }
+
     
     /**
      * Returns the list of all the people
@@ -59,7 +60,6 @@ public class FestivaliersResource extends ServerResource
             JSONObject current = new JSONObject();
             current.put("id", people.getId());
             current.put("url", getReference().toString() + people.getId());
-            current.put("tweet_url", getReference().toString() + people.getId() + "/tweets");
             jsonFestivaliers.add(current);
 
         }

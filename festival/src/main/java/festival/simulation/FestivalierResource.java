@@ -72,7 +72,8 @@ public class FestivalierResource extends ServerResource
     	// user_ is set by doInit
 
         JSONObject festivalierObject = toJson(festivalier_);
-        festivalierObject.put("etat_url", getReference().toString() + "/etats");
+        festivalierObject.put("id", festivalier_.getId());
+        festivalierObject.put("etat_url", getReference().toString() + festivalier_.getId() + "/stats");
 
         JsonRepresentation result = new JsonRepresentation(festivalierObject);
         result.setIndenting(true);

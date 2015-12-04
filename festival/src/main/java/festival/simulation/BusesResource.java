@@ -23,7 +23,7 @@ import org.restlet.resource.ServerResource;
  * @author Frederic Rochard
  *
  */
-public class BusResource extends ServerResource
+public class BusesResource extends ServerResource
 {
 
     /** Backend. */
@@ -54,7 +54,7 @@ public class BusResource extends ServerResource
      * Constructor.
      * Call for every single user request.
      */
-    public BusResource()
+    public BusesResource()
     {
         backend_ = (Backend) getApplication().getContext().getAttributes()
                 .get("backend");

@@ -14,11 +14,11 @@ public class Main {
 	public static void main(String[] args) throws Exception {
 		
 		Simulation simulation = new Simulation();
-		simulation.addPeople(14);
-		simulation.addBuses(2,5);
+		/*simulation.addPeople(14);
+		simulation.addBuses(2,5);*/
 		
 		
-        // Create a component
+       // Create a component
         Component component = new Component();
         Context context = component.getContext().createChildContext();
         component.getServers().add(Protocol.HTTP, 5000);
