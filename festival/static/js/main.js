@@ -25,8 +25,8 @@ $(document).ready(function() {
         });
     });
 
-    if($('#users-table').length) {
-        var users_table = $('#users-table tbody');
+    if($('#festivaliers-table').length) {
+        var users_table = $('#festivaliers-table tbody');
 
         $.ajax({
             type: "get",
@@ -37,11 +37,13 @@ $(document).ready(function() {
                 $.each(data, function (item) {
                     var id = data[item].id;
                     var url = data[item].url;
+                    var stat_url = data[item].stat_url;
 
                     users_table.append(
                     '<tr>' +
                         '<td>' + id + '</td>' +
                         '<th><a href="' + url + '">' + id + '</a></th>' +
+                        '<td><a type="button" class="btn btn-success btn-xs" href = "'+ stat_url + '">stats</a> ' +
                     '</tr>'
                     );
 
@@ -66,8 +68,8 @@ $(document).ready(function() {
         });
     }
 
-    if($('#tweets-list').length) {
-        var tweets_list = $('ul#tweets-list');
+    if($('#stats-list').length) {
+        var stats_list = $('ul#stats-list');
 
         $.ajax({
             type: "get",
@@ -75,12 +77,18 @@ $(document).ready(function() {
             success: function(data){
                 console.log(data);
                 if(data.length == 0) {
-                  tweets_list.append('<li>Aucun tweet</li>');
+                  stats_list.append('<li>Aucun etat</li>');
                 }
                 else {
                   $.each(data, function (item) {
-                      var tweet = data[item].content;
-                      tweets_list.append('<li>' + tweet + '</li>');
+                      var libelle_etat = data[item].libelle_etat;
+                      var date_etat = data[item].date_etat;
+                      stats_list.append(
+                    		  '<tr>' +
+                              	'<td>' + libelle_etat + '</td>' +
+                              	'<td>' + date_etat + '</td>' +
+                              '</tr>'
+                      );
                   });
                 }
             },

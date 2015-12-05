@@ -8,7 +8,6 @@ import org.restlet.data.Protocol;
 import org.restlet.data.Reference;
 import org.restlet.resource.Directory;
 
-import festival.restlet.Backend;
 public class Main {
 
 	public static void main(String[] args) throws Exception {
@@ -34,9 +33,7 @@ public class Main {
        
         // Start the component
         component.start();
-        
-		/*simulation.addPeople(14);
-		simulation.addBuses(2,5);*/
+
     }
 	
 	

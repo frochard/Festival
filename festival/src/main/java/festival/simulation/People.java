@@ -3,8 +3,6 @@ package festival.simulation;
 import java.util.ArrayList;
 import java.util.List;
 
-import festival.restlet.Tweet;
-
 public class People extends Thread{
 
 	private int idFestivalier;
@@ -42,6 +40,12 @@ public class People extends Thread{
 
 	public void setEtats(List<Etat> etats) {
 		this.etats = etats;
+	}
+	
+	public Etat etatEnCours(){
+		Etat etatEnCours;
+		etatEnCours=this.etats.get(this.etats.size() - 1);
+		return etatEnCours;
 	}
 
 	public void run(){

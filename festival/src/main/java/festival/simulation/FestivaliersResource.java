@@ -4,7 +4,6 @@ package festival.simulation;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -15,8 +14,6 @@ import org.restlet.representation.FileRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
-
-import festival.restlet.Backend;
 
 /**
  * Resource exposing the users
@@ -52,17 +49,12 @@ public class FestivaliersResource extends ServerResource
     public Representation getFestivaliers() throws JSONException
     {
         Collection<People> festivaliers = simulation_.getFestivaliers();
-        System.out.println("--------------***********---------------");
-    	System.out.println("Affichage des festivaliers de la simulation");
-        for (People people : festivaliers){
-        	System.out.println("festivalier "+people.getId());
-        }
-        System.out.println("--------------***********---------------");
         Collection<JSONObject> jsonFestivaliers = new ArrayList<JSONObject>();
         for (People people : festivaliers){
             JSONObject current = new JSONObject();
-            current.put("id", people.getId());
-            current.put("url", getReference().toString() + people.getId());
+            current.put("id", people.getIdFestivalier());
+            current.put("url", getReference().toString() + people.getIdFestivalier());
+            current.put("stat_url", getReference().toString() + people.getIdFestivalier() + "/stats");
             jsonFestivaliers.add(current);
         }
         JSONArray jsonArray = new JSONArray(jsonFestivaliers);

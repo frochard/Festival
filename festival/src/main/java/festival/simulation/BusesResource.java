@@ -2,10 +2,7 @@ package festival.simulation;
 
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
-
-import festival.restlet.Backend;
 import festival.simulation.*;
-
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.restlet.data.Status;
