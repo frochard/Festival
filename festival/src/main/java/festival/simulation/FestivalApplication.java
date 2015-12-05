@@ -39,11 +39,12 @@ public class FestivalApplication extends Application
         router.attach("/people/", FestivaliersResource.class);/*| GET : récupère la liste des festivaliers | POST      | ajoute un certain nombre de festivaliers*/
         router.attach("/people/{people-id}", FestivalierResource.class);/*GET       | récupère les infos d'un festivalier*/
         router.attach("/people/{people-id}/", FestivalierResource.class);/*GET       | récupère les infos d'un festivalier*/
-        router.attach("/people/{people-id}/stats", StatsResource.class);/*GET       | récupère les quatre instants de changement d'état d'un festivalier*/
-        router.attach("/people/{people-id}/stats/", StatsResource.class);/*GET       | récupère les quatre instants de changement d'état d'un festivalier*/
+        router.attach("/people/{people-id}/stats", EtatsResource.class);/*GET       | récupère les quatre instants de changement d'état d'un festivalier*/
+        router.attach("/people/{people-id}/stats/", EtatsResource.class);/*GET       | récupère les quatre instants de changement d'état d'un festivalier*/
         router.attach("/buses", BusesResource.class);/*POST : ajoute un certain nombre de bus*/
         router.attach("/buses/", BusesResource.class);/*POST : ajoute un certain nombre de bus*/
-
+        router.attach("/stats", StatsResource.class);/*GET : récupère les statistiques des festivaliers*/
+        router.attach("/stats/", StatsResource.class);/*GET : récupère les statistiques des festivaliers*/
         return router;
     }
 }

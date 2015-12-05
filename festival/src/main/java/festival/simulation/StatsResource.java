@@ -33,62 +33,71 @@ public class StatsResource extends ServerResource {
 		simulation_ = (Simulation) getApplication().getContext().getAttributes().get("simulation");
 	}
 
-	/*
-	 * The method doInit is called prior to the others.
-	 */
-	@Override
-	protected void doInit() throws ResourceException {
-		// On r√©cup√®re l'id pass√©e dans l'URL
-		// Note : a priori le cast ne passe pas en java6
-		// int userId = (Integer) getRequest().getAttributes().get("userId");
-        int festivalierId = Integer.valueOf((String) getRequest().getAttributes().get("people-id"));
-        int i=0;
-        while(festivalier_ == null & i < this.simulation_.getFestivaliers().size()){
-            if(simulation_.getFestivaliers().get(i).getIdFestivalier()==festivalierId){
-            	festivalier_ = simulation_.getFestivaliers().get(i);
-            }
-            i++;
-        }               
-        if (festivalier_ == null)
-        {
-            getResponse().setStatus(Status.CLIENT_ERROR_NOT_FOUND);
-        }
-	}
-
-	@Get("html")
-	public Representation getUsersHtml() {
-		return new FileRepresentation("templates/list-stats.html", MediaType.TEXT_HTML);
-	}
 
 	/**
-	 * Returns the list of the stats of a user
+	 * Returns the list of the statistics 
 	 *
-	 * @return JSON representation of the stats
+	 * @return JSON representation of the statistics
 	 * @throws JSONException
 	 */
 	@Get("json")
 	public Representation getStats() throws JSONException {
-		List<Etat> etats = festivalier_.getEtats();
-		Collection<JSONObject> jsonStats = new ArrayList<JSONObject>();
-		for (Etat etat : etats) {
-			System.out.println("----------------");
-			System.out.println("Etat ‡ afficher pour le festivalier " + festivalier_.getIdFestivalier());
-			System.out.println("Ètat : " + etat.getLibelleEtat());
-			System.out.println("date Ètat : " + etat.getDateEtat());
-			System.out.println("----------------");
-			JSONObject current = toJson(etat);
-			jsonStats.add(current);
+		int nbA=0;
+		int nbB=0;
+		int nbC=0;
+		int nbD=0;
+		long tempsTotal=0;
+		//Parcours des festivaliers
+		for(People festivalier:simulation_.getFestivaliers()){
+			//Test de l'Ètat du festivalier
+			switch (festivalier.etatEnCours().getLibelleEtat()){
+			  case "A":
+			    nbA++;
+			    break;        
+			  case "B":
+				  nbB++;
+			    break;        
+			  case "C":
+				  nbC++;
+			    break;        
+			  case "D":
+				  nbD++;
+				  tempsTotal+=festivalier.etatEnCours().getDateEtat()-festivalier.getEtats().get(0).getDateEtat();
+			    break;        
+			  default:
+			    /*Action*/;             
+			}
 		}
-		JSONArray jsonArray = new JSONArray(jsonStats);
-		JsonRepresentation result = new JsonRepresentation(jsonArray);
-		result.setIndenting(true);
-		return result;
-	}
-
-	private JSONObject toJson(Etat etat) throws JSONException {
+		//Calcul du temps moyen
+		long tempsMoyen=0;
+		if (nbD!=0){
+			tempsMoyen=tempsTotal/nbD;
+		}
+		//Collection contenant les stats pour chaque Ètat
+		Collection<JSONObject> jsonStats = new ArrayList<JSONObject>();
+		
 		JSONObject current = new JSONObject();
-		current.put("libelle_etat", etat.getLibelleEtat());
-		current.put("date_etat", etat.getDateEtat());
-		return current;
+		current.put("state", "A");
+		current.put("nb", nbA);
+		jsonStats.add(current);
+		current = new JSONObject();
+		current.put("state", "B");
+		current.put("nb", nbB);
+		jsonStats.add(current);
+		current = new JSONObject();
+		current.put("state", "C");
+		current.put("nb", nbC);
+		jsonStats.add(current);
+		current = new JSONObject();
+		current.put("state", "D");
+		current.put("nb", nbD);
+		jsonStats.add(current);
+		
+		JSONObject statistic = new JSONObject();
+		statistic.put("states", jsonStats);
+		statistic.put("temps", tempsMoyen);
+        JsonRepresentation result = new JsonRepresentation(statistic);
+        result.setIndenting(true);
+        return result;
 	}
 }

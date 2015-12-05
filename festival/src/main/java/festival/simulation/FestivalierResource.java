@@ -85,7 +85,6 @@ public class FestivalierResource extends ServerResource
     
     JSONObject toJson(People festivalier) throws JSONException{
     	JSONObject festivalierObject = new JSONObject();
-    	//festivalierObject.put("name", festivalier.getName());
         festivalierObject.put("id", festivalier.getId());
         return festivalierObject;
     }

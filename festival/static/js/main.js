@@ -25,6 +25,19 @@ $(document).ready(function() {
         });
     });
 
+    $("#stats-form button").click( function() {
+        $.ajax({
+            type: "get",
+            url: "/stats/",
+            success: function(data){
+                console.log(data);
+                window.location = "/stats";
+            },
+            dataType: "json",
+            contentType : "application/json"
+        });
+    });
+
     if($('#festivaliers-table').length) {
         var users_table = $('#festivaliers-table tbody');
 
@@ -47,16 +60,6 @@ $(document).ready(function() {
                     '</tr>'
                     );
 
-                    $('button#delete-user-' + id).click(function() {
-                        $.ajax({
-                            type: "delete",
-                            url: "/users/" + id,
-                            success: function(data){
-                                console.log("User " + data.id + " deleted");
-                                window.location = "/";
-                            }
-                        });
-                    });
 
                 });
             },
