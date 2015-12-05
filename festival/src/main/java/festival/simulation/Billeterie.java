@@ -1,8 +1,14 @@
 package festival.simulation;
 
+/**
+ * Cette classe gère la billetterie du fesival. 
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class Billeterie {
 
-	static int nbBilletMax=500;
+	//Max number of tickets
+	final static int nbBilletMax=2000;
 	
 	private int nbBilletDispo; 
 	

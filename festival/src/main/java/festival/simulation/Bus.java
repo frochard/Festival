@@ -2,7 +2,17 @@ package festival.simulation;
 
 import java.util.ArrayList;
 
+/**
+ * This class manages buses. 
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class Bus extends Thread {
+
+	//Travel duration
+	final static int dureeTrajet=500;
+	//duration for taking or leaving people
+	final static int dureeArret=100;
 
 	private int numBus;
 	private int nbPlace;
@@ -17,7 +27,6 @@ public class Bus extends Thread {
 		this.siteArrivee=siteArrivee;
 		this.passagers=new ArrayList<People>();
 		System.out.println("Création du bus "+this.numBus);
-
 	}
 
 	public Bus(int nbPlace, int numBus) {
@@ -50,13 +59,11 @@ public class Bus extends Thread {
 		this.passagers = passagers;
 	}
 	
-
-
+	/**
+	 * Cette classe fait descendre les festivaliers du bus et changent leur état
+	 * @throws InterruptedException
+	 */
 	public synchronized void descendreDuBus() throws InterruptedException{
-		System.out.println("*************************");
-		for(People p:passagers){
-			System.out.println("passager "+p.getIdFestivalier()+" dans le bus "+this.getNumBus());
-		}
 		//Parcours des passagers du bus
 		for(People p:passagers){
 			//Changement d'état des passagers
@@ -66,24 +73,18 @@ public class Bus extends Thread {
 			//Augmentation du nombre de places libres dans le bus
 			this.nbPlace++;
 		}
-		System.out.println("*************************");
-		//Suppresion du festivalier du bus
+		//Remove people from the bus
 		this.passagers.clear();
-		// Parcours qui Génère java.util.ConcurrentModificationException
-/*		for(People p:this.siteArrivee.getFestivaliers()){
-			System.out.println("Festivalier présent sur site arrivée"+p.getIdFestivalier());
-		}
-		System.out.println("*************************");*/
 	}
-	
 
 	public void run(){
+		//Les bus font des allers retours tout au long de la simulation => Condition toujours vraie
 		while(true){
 			//Attente de parking sur le site de dÃ©part
 			this.siteDepart.ajouterBus(this);
 			//Tempo pour laisser les gens monter
 			try {
-				sleep(100);
+				sleep(dureeArret);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -91,7 +92,7 @@ public class Bus extends Thread {
 			this.siteDepart.retirerBus(this);
 			//Trajet aller
 			try {
-				sleep(500);
+				sleep(dureeTrajet);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
@@ -104,14 +105,14 @@ public class Bus extends Thread {
 				e1.printStackTrace();
 			}
 			try {
-				sleep(100);
+				sleep(dureeArret);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}
 			//Trajet retour : Retour du bus vers le site de départ
 			System.out.println("Départ du bus "+this.numBus+" du site d'arrivée.");
 			try {
-				sleep(500);
+				sleep(dureeTrajet);
 			} catch (InterruptedException e) {
 				e.printStackTrace();
 			}

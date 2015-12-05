@@ -3,26 +3,29 @@ package festival.simulation;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class manages people. 
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class People extends Thread{
 
 	private int idFestivalier;
 	private List<Etat> etats;
 	private Billeterie billeterie;
 	private Site siteDepart;
-	private Site siteArrivee;
 
-	public People(int idFestivalier,Billeterie billeterie, Site siteDepart, Site siteArrivee) {
+	public People(int idFestivalier,Billeterie billeterie, Site siteDepart) {
 		this.idFestivalier=idFestivalier;
 		this.etats=new ArrayList<Etat>();
 		this.etats.add(new Etat());
 		this.billeterie=billeterie;
 		this.siteDepart=siteDepart;
-		this.siteArrivee=siteArrivee;
 		System.out.println("Création du festivalier "+this.idFestivalier);
 	}
 
 	public People(int id) {
-		this.idFestivalier=idFestivalier;
+		this.idFestivalier=id;
 	}
 
 	public int getIdFestivalier() {
@@ -41,7 +44,11 @@ public class People extends Thread{
 	public void setEtats(List<Etat> etats) {
 		this.etats = etats;
 	}
-	
+
+	/**
+	 * gets the current people state
+	 * @return etatEnCours current people state
+	 */
 	public Etat etatEnCours(){
 		Etat etatEnCours;
 		etatEnCours=this.etats.get(this.etats.size() - 1);
@@ -60,7 +67,6 @@ public class People extends Thread{
 			try {
 				this.siteDepart.monterDansBus(this);
 			} catch (InterruptedException e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
 		}

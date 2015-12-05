@@ -1,9 +1,8 @@
-package festival.simulation;
+package festival.resources;
 
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
-
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -13,10 +12,18 @@ import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.FileRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
-import org.restlet.resource.Post;
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import festival.simulation.Etat;
+import festival.simulation.People;
+import festival.simulation.Simulation;
+
+/**
+ * This class gets people states.
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class EtatsResource extends ServerResource {
 
 	/** Backend. */
@@ -61,9 +68,8 @@ public class EtatsResource extends ServerResource {
 	}
 
 	/**
-	 * Returns the list of the stats of a user
-	 *
-	 * @return JSON representation of the stats
+	 * Returns the list of the states of a people
+	 * @return JSON representation of the states
 	 * @throws JSONException
 	 */
 	@Get("json")

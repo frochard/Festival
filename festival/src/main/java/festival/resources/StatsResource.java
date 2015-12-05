@@ -1,29 +1,26 @@
-package festival.simulation;
+package festival.resources;
 
 import java.util.ArrayList;
 import java.util.Collection;
-import java.util.List;
-
-import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.restlet.data.MediaType;
-import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
-import org.restlet.representation.FileRepresentation;
 import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
-import org.restlet.resource.Post;
-import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
 
+import festival.simulation.People;
+import festival.simulation.Simulation;
+
+/**
+ * This class gets the simulation statistics
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class StatsResource extends ServerResource {
 
 	/** Backend. */
 	private Simulation simulation_;
-
-    /** festivalier handled by this resource. */
-    private People festivalier_;
 
 	/**
 	 * Constructor. Call for every single user request.
@@ -33,7 +30,6 @@ public class StatsResource extends ServerResource {
 		simulation_ = (Simulation) getApplication().getContext().getAttributes().get("simulation");
 	}
 
-
 	/**
 	 * Returns the list of the statistics 
 	 *
@@ -42,14 +38,15 @@ public class StatsResource extends ServerResource {
 	 */
 	@Get("json")
 	public Representation getStats() throws JSONException {
+		//These var contains the people number in each state
 		int nbA=0;
 		int nbB=0;
 		int nbC=0;
 		int nbD=0;
 		long tempsTotal=0;
-		//Parcours des festivaliers
+		//Get each people
 		for(People festivalier:simulation_.getFestivaliers()){
-			//Test de l'état du festivalier
+			//Test the people state
 			switch (festivalier.etatEnCours().getLibelleEtat()){
 			  case "A":
 			    nbA++;
@@ -68,14 +65,14 @@ public class StatsResource extends ServerResource {
 			    /*Action*/;             
 			}
 		}
-		//Calcul du temps moyen
+		//Average time for getting at the concert area
 		long tempsMoyen=0;
 		if (nbD!=0){
 			tempsMoyen=tempsTotal/nbD;
 		}
-		//Collection contenant les stats pour chaque état
+		//Collection of statistics for each state (JSON)
 		Collection<JSONObject> jsonStats = new ArrayList<JSONObject>();
-		
+		//Each state is added to the collection 
 		JSONObject current = new JSONObject();
 		current.put("state", "A");
 		current.put("nb", nbA);
@@ -92,7 +89,7 @@ public class StatsResource extends ServerResource {
 		current.put("state", "D");
 		current.put("nb", nbD);
 		jsonStats.add(current);
-		
+		//Creation of the JSON Object Statistic
 		JSONObject statistic = new JSONObject();
 		statistic.put("states", jsonStats);
 		statistic.put("temps", tempsMoyen);

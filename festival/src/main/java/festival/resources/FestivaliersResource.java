@@ -1,29 +1,30 @@
-package festival.simulation;
+package festival.resources;
 
 
-import java.io.File;
 import java.util.ArrayList;
 import java.util.Collection;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.restlet.data.MediaType;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.representation.FileRepresentation;
 import org.restlet.resource.Get;
 import org.restlet.resource.Post;
 import org.restlet.resource.ServerResource;
 
-/**
- * Resource exposing the users
- *
- * @author 
- *
- */
-public class FestivaliersResource extends ServerResource
-{
+import festival.simulation.People;
+import festival.simulation.Simulation;
 
+/**
+ * This class creates some people and return the list of the created people
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
+public class FestivaliersResource extends ServerResource{
+
+	//Number of people to create for the current simulation
+	final static int nbFestivalier=2053;
+	
     /** Backend. */
     private Simulation simulation_;
 
@@ -40,14 +41,14 @@ public class FestivaliersResource extends ServerResource
 
     
     /**
-     * Returns the list of all the people
+     * Returns the list of all the people of the simulation
      *
      * @return  JSON representation of the people
      * @throws JSONException
      */
     @Get("json")
-    public Representation getFestivaliers() throws JSONException
-    {
+    public Representation getFestivaliers() throws JSONException{
+    	//Collection of people
         Collection<People> festivaliers = simulation_.getFestivaliers();
         Collection<JSONObject> jsonFestivaliers = new ArrayList<JSONObject>();
         for (People people : festivaliers){
@@ -65,15 +66,10 @@ public class FestivaliersResource extends ServerResource
 
     /**
      * Crée un certain nombre de festivalier
-     * 
-     * @param json representation of the user to create
-     * @return JSON representation of the newly created user
-     * @throws JSONException
      */
     @Post("json")
     public void createUsers(){
     	System.out.println("Crée un certain nombre de festivalier");
-    	simulation_.addPeople(2);
+    	simulation_.addPeople(nbFestivalier);
     }
-
 }

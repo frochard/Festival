@@ -1,20 +1,23 @@
-package festival.simulation;
+package festival.application;
 
 import java.io.File;
 
 import org.restlet.Application;
 import org.restlet.Context;
 import org.restlet.Restlet;
-import org.restlet.data.Reference;
 import org.restlet.resource.Directory;
 import org.restlet.routing.Router;
 
+import festival.resources.BusesResource;
+import festival.resources.EtatsResource;
+import festival.resources.FestivalierResource;
+import festival.resources.FestivaliersResource;
+import festival.resources.RootResource;
+import festival.resources.StatsResource;
+
 /**
- *
- * Application.
- *
+ * This class contains all the URI used for the website.
  * @author Sanaa MAIROUCH / Frederic ROCHARD
- *
  */
 public class FestivalApplication extends Application
 {
@@ -31,7 +34,6 @@ public class FestivalApplication extends Application
     	Directory directory = new Directory(getContext(), "file:///" + staticDirectory.getAbsolutePath() + "/");
     	directory.isDeeplyAccessible();
     	directory.isListingAllowed();
-    	    	
         Router router = new Router(getContext());
         router.attach("/", RootResource.class);
         router.attach("/static", directory);

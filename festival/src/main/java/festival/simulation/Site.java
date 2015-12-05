@@ -2,6 +2,11 @@ package festival.simulation;
 
 import java.util.ArrayList;
 
+/**
+ * On gère dans cette classe les deux sites de la simulation : le site de départ et le site d'arrivée 
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class Site {
 
 	private ArrayList<Bus> buses;
@@ -33,10 +38,12 @@ public class Site {
 		festivaliers.add(p);
 	}
 
+	//retire un bus du site
 	public synchronized void retirerFestivalier(People p){
 		festivaliers.remove(p);
 	}
 
+	//ajoute un bus sur le site
 	public synchronized void ajouterBus(Bus b){
 		//on ajoute le bus au site
 		buses.add(b);
@@ -49,12 +56,17 @@ public class Site {
 		System.out.println("Départ du bus "+b.getNumBus()+" du site de départ.");
 	}
 
+	/**
+	 * ajoute un festivalier dans le bus et change son état
+	 * @param p festivalier à faire monter dans le bus
+	 * @throws InterruptedException
+	 */
 	public synchronized void monterDansBus(People p) throws InterruptedException{
-		while(p.getEtats().size()==2){
+		while(p.etatEnCours().getLibelleEtat()=="B"){
 			//On parcourt les bus du site de départ pour rechercher une place libre
 			for (Bus b:this.buses){
 				//Test si le festivalier est en attente de bus
-				if(p.getEtats().size()==2){
+				if(p.etatEnCours().getLibelleEtat()=="B"){
 					//Test s'il reste des places libres dans le bus
 					if (b.getNbPlace()<=0){
 						System.out.println("Il n'y a plus de place disponible dans le bus "+b.getNumBus()+". ");
@@ -73,7 +85,7 @@ public class Site {
 					}
 				}
 			}
-			if(p.getEtats().size()==2){
+			if(p.etatEnCours().getLibelleEtat()=="B"){
 				//Mise en attente des festvaliers
 				wait();
 				System.out.println("festivalier "+p.getIdFestivalier()+" en attente d'un bus");

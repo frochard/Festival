@@ -1,28 +1,24 @@
-package festival.simulation;
+package festival.resources;
 
 import org.restlet.resource.ResourceException;
 import org.restlet.resource.ServerResource;
-import festival.simulation.*;
-import java.util.Iterator;
+
+import festival.simulation.People;
+import festival.simulation.Simulation;
+
 import org.json.JSONException;
 import org.json.JSONObject;
 import org.restlet.data.Status;
 import org.restlet.ext.json.JsonRepresentation;
 import org.restlet.representation.Representation;
-import org.restlet.resource.Delete;
 import org.restlet.resource.Get;
-import org.restlet.resource.Post;
-import org.restlet.resource.ServerResource;
 
 /**
- * Resource exposing a user
- *
+ * Resource exposing a people
  * @author Sanaa Mairouch
  * @author Frederic Rochard
- *
  */
-public class FestivalierResource extends ServerResource
-{
+public class FestivalierResource extends ServerResource{
 
     /** Backend. */
     private Simulation simulation_;
@@ -35,8 +31,7 @@ public class FestivalierResource extends ServerResource
      * The method doInit is called prior to the others.
      */
     @Override
-    protected void doInit() throws ResourceException 
-    {
+    protected void doInit() throws ResourceException{
         // On récupère l'id passée dans l'URL
         // Note : a priori le cast ne passe pas en java6
         //int userId = (Integer) getRequest().getAttributes().get("userId");
@@ -58,16 +53,13 @@ public class FestivalierResource extends ServerResource
      * Constructor.
      * Call for every single user request.
      */
-    public FestivalierResource()
-    {
-    	simulation_ = (Simulation) getApplication().getContext().getAttributes()
-                .get("simulation");
+    public FestivalierResource(){
+    	simulation_ = (Simulation) getApplication().getContext().getAttributes().get("simulation");
     }
 
     /**
-     * Returns the user matching the id given in the URI
-     * 
-     * @return JSON representation of a user
+     * Returns people matching the id given in the URI
+     * @return JSON representation of a people
      * @throws JSONException
      */
     @Get("json")
@@ -83,9 +75,12 @@ public class FestivalierResource extends ServerResource
         return result;
     }
     
+    //get a JSON object of the people
     JSONObject toJson(People festivalier) throws JSONException{
     	JSONObject festivalierObject = new JSONObject();
-        festivalierObject.put("id", festivalier.getId());
+        festivalierObject.put("id", festivalier_.getIdFestivalier());
+        festivalierObject.put("state", festivalier_.etatEnCours().getLibelleEtat());
+        festivalierObject.put("url_stats", getReference().toString() + "/stats");
         return festivalierObject;
     }
 }

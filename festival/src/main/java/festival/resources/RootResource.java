@@ -1,4 +1,4 @@
-package festival.simulation;
+package festival.resources;
 
 import org.restlet.data.MediaType;
 import org.restlet.representation.FileRepresentation;

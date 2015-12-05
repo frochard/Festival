@@ -10,7 +10,9 @@ public class Simulation {
 	private Site siteDepart;
     private Site siteArrivee;
     private Billeterie billeterie;
+    //Liste des festivaliers de la simulation
 	private ArrayList<People> festivaliers;
+    //Liste des bus de la simulation
 	private ArrayList<Bus> buses;
 
 	public Simulation() {
@@ -31,7 +33,7 @@ public class Simulation {
 
 	public void addPeople(int people) {
 		for(int i=1;i<=people;i++){
-			People p=new People(i,this.billeterie, this.siteDepart, this.siteArrivee);
+			People p=new People(i,this.billeterie, this.siteDepart);
 			this.festivaliers.add(p);
 			p.start();
 		}
