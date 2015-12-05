@@ -16,7 +16,7 @@ import festival.simulation.People;
 import festival.simulation.Simulation;
 
 /**
- * This class creates some people and return the list of the created people
+ * Accès à la ressource Festivaliers. Création d’un ensemble de festivaliers et récupération de la liste des festivaliers.
  * @author Sanaa Mairouch
  * @author Frederic Rochard
  */
@@ -32,13 +32,10 @@ public class FestivaliersResource extends ServerResource{
      * Constructor.
      * Call for every single people request.
      */
-    public FestivaliersResource()
-    {
+    public FestivaliersResource(){
         super();
-        simulation_ = (Simulation) getApplication().getContext().getAttributes()
-            .get("simulation");
+        simulation_ = (Simulation) getApplication().getContext().getAttributes().get("simulation");
     }
-
     
     /**
      * Returns the list of all the people of the simulation
@@ -69,7 +66,7 @@ public class FestivaliersResource extends ServerResource{
      */
     @Post("json")
     public void createUsers(){
-    	System.out.println("Crée un certain nombre de festivalier");
+    	//Ajout d'un certain nombre de festivalier
     	simulation_.addPeople(nbFestivalier);
     }
 }

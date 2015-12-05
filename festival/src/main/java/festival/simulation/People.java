@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * This class manages people. 
+ * Cette classe gère les festivalier de la simulation. Elle implémente l’interface Thread.
  * @author Sanaa Mairouch
  * @author Frederic Rochard
  */

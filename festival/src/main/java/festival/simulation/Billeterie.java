@@ -1,7 +1,7 @@
 package festival.simulation;
 
 /**
- * Cette classe gère la billetterie du fesival. 
+ * Cette classe gère la billetterie du festival (nombre de billets en vente et les achats de billet).
  * @author Sanaa Mairouch
  * @author Frederic Rochard
  */

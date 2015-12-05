@@ -8,6 +8,12 @@ import org.restlet.data.Protocol;
 import festival.application.FestivalApplication;
 import festival.simulation.Simulation;
 
+/**
+ * Classe principale de notre projet. 
+ * lance le serveur Web sur le port 5000 de notre machine et crée une nouvelle simulation
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class Main {
 
 	public static void main(String[] args) throws Exception {

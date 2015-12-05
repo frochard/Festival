@@ -20,7 +20,7 @@ import festival.simulation.People;
 import festival.simulation.Simulation;
 
 /**
- * This class gets people states.
+ * Accès à la ressource Etats. Récupération de la liste des états d’un festivalier.
  * @author Sanaa Mairouch
  * @author Frederic Rochard
  */

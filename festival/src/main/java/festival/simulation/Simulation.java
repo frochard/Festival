@@ -2,10 +2,12 @@ package festival.simulation;
 
 import java.util.ArrayList;
 
+/**
+ * Cette classe gère le nombre de bus et de festivaliers que nous voulons ajouter dans notre simulation
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class Simulation {
-
-	/* Constantes (final indique que la valeur ne peut pas changer) */
-	static final int maxClients = 100;
 
 	private Site siteDepart;
     private Site siteArrivee;

@@ -3,7 +3,7 @@ package festival.simulation;
 import java.util.ArrayList;
 
 /**
- * This class manages buses. 
+ * Cette classe gère les bus de la simulation. Elle implémente l’interface Thread.  
  * @author Sanaa Mairouch
  * @author Frederic Rochard
  */
@@ -63,7 +63,7 @@ public class Bus extends Thread {
 	 * Cette classe fait descendre les festivaliers du bus et changent leur état
 	 * @throws InterruptedException
 	 */
-	public synchronized void descendreDuBus() throws InterruptedException{
+	public void descendreDuBus() throws InterruptedException{
 		//Parcours des passagers du bus
 		for(People p:passagers){
 			//Changement d'état des passagers

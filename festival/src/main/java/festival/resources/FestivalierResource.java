@@ -14,7 +14,7 @@ import org.restlet.representation.Representation;
 import org.restlet.resource.Get;
 
 /**
- * Resource exposing a people
+ * Accès à la ressource Festivalier. Récupération des infos d’un festivalier.
  * @author Sanaa Mairouch
  * @author Frederic Rochard
  */

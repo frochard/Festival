@@ -1,5 +1,10 @@
 package festival.simulation;
 
+/**
+ * Cette classe gère les états du festivalier : libellé état (A,B,C ou D) et date du changement d’état.
+ * @author Sanaa Mairouch
+ * @author Frederic Rochard
+ */
 public class Etat {
 
 	private String libelleEtat;
@@ -25,7 +30,4 @@ public class Etat {
 	public void setDateEtat(long dateEtat) {
 		this.dateEtat = dateEtat;
 	}
-
-	
-	
 }

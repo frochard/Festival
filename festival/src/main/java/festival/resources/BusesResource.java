@@ -7,7 +7,7 @@ import festival.simulation.Simulation;
 import org.restlet.resource.Post;
 
 /**
- * This class creates buses.
+ * Accès à la ressource Bus. Création d’un ensemble de bus.
  * @author Sanaa Mairouch
  * @author Frederic Rochard
  */
