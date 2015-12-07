@@ -33,17 +33,28 @@ public class Site {
 		this.festivaliers = festivaliers;
 	}
 
+	/**
+	 * on ajoute le festivalier au site
+	 * On synchronise cette méthode pour protéger la variable contenant la liste des festivaliers du site
+	 * @param p festivalier à ajouter sur le site
+	 */
 	public synchronized void ajouterFestivalier(People p){
-		//on ajoute le festivalier au site
 		festivaliers.add(p);
 	}
 
-	//retire un bus du site
+	/**
+	 * on retire un festivalier du site
+	 * On synchronise cette méthode pour protéger la variable contenant la liste des festivaliers du site
+	 * @param p festivalier à retirer du site
+	 */
 	public synchronized void retirerFestivalier(People p){
 		festivaliers.remove(p);
 	}
 
-	//ajoute un bus sur le site
+	/**
+	 * 	ajoute un bus sur le site. On synchronise cette méthode pour protéger la variable contenant la liste des busdu site
+	 * @param b bus à ajouter sur le site
+	 */
 	public synchronized void ajouterBus(Bus b){
 		//on ajoute le bus au site
 		buses.add(b);
@@ -51,6 +62,10 @@ public class Site {
 		notifyAll();
 	}
 
+	/**
+	 * 	retire un bus du site. On synchronise cette méthode pour protéger la variable contenant la liste des busdu site
+	 * @param b bus à retirer du site
+	 */
 	public synchronized void retirerBus(Bus b){
 		buses.remove(b);
 		System.out.println("Départ du bus "+b.getNumBus()+" du site de départ.");
@@ -58,6 +73,7 @@ public class Site {
 
 	/**
 	 * ajoute un festivalier dans le bus et change son état
+	 * On synchronise cette méthode pour protéger le nombre de place disponible dans le bus
 	 * @param p festivalier à faire monter dans le bus
 	 * @throws InterruptedException
 	 */

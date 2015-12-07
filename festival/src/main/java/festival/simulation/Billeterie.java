@@ -15,7 +15,13 @@ public class Billeterie {
 	public Billeterie() {
 		this.nbBilletDispo=nbBilletMax;
 	}
-	
+
+	/**
+	 * On synchronise cette méthode pour éviter que plusieurs festivaliers accèdent simultanément 
+	 * à la variable contenant le nombre de billets disponibles
+	 * On retourne vrai s'il reste des places disponibles
+	 * On retourne faux sinon
+	 */
 	public synchronized boolean achatPlace(){
 		//Test s'il y a des billets disponibles
 		if(this.nbBilletDispo>0){
