@@ -33,6 +33,10 @@ public class Simulation {
 		return buses;
 	}
 
+	/**
+	 * Ajoute le nombre de festivaliers passé en paramètre
+	 * @param people nombre de festivaliers à ajouter
+	 */
 	public void addPeople(int people) {
 		for(int i=1;i<=people;i++){
 			People p=new People(i,this.billeterie, this.siteDepart);
@@ -41,6 +45,11 @@ public class Simulation {
 		}
     }
 
+	/**
+	 * Ajoute le nombre de bus passé en paramètre avec un nombre de places passé en paramètre
+	 * @param buses nombre de bus à ajouter
+	 * @param seats nombre places dans le bus
+	 */
 	public void addBuses(int buses, int seats) {
 		for(int i=1;i<=buses;i++){
 			Bus b=new Bus(i,seats, this.siteDepart, this.siteArrivee);
